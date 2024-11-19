@@ -1,0 +1,32 @@
+<resources>
+    <!-- Login Screen -->
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login_button">Login</string>
+    <string name="sign_up">Didn\'t have an account? Sign up please.</string>
+    <string name="please_login">Already have an account? Login</string>
+
+    <!-- Sign Up Screen -->
+    <string name="create_account">Create Account</string>
+    <string name="full_name">Full Name</string>
+    <string name="email_layout">Email</string>
+    <string name="password_layout">Password</string>
+    <string name="sign_up_button">Sign Up</string>
+
+    <!-- Documents Screen -->
+    <string name="app">RepoSights</string>
+    <string name="document_search">Document Search</string>
+    <string name="search_documents">Search documents…</string>
+    <string name="search">Search</string>
+    <string name="document_title">Document Title</string>
+    <string name="document_url">Document URL</string>
+
+    <!-- Chat Screen -->
+    <string name="message">Type a message…</string>
+    <string name="send">Send</string>
+
+    <!-- Common -->
+    <string name="sign_out">Sign out</string>
+    <string name="clear_text">Clear text</string>
+</resources>
