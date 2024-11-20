@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.feature.home
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -122,6 +123,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun addDocumentChip(document: RelatedDocument) {
         val chip = Chip(this).apply {
             text = document.title

@@ -15,7 +15,6 @@
     <string name="sign_up_button">Sign Up</string>
 
     <!-- Documents Screen -->
-    <string name="documents">Documents</string>
     <string name="document_search">Document Search</string>
     <string name="search_documents">Search documents…</string>
     <string name="search">Search</string>
@@ -23,7 +22,7 @@
     <string name="document_url">Document URL</string>
 
     <!-- Chat Screen -->
-    <string name="type_a_message">Type a message…</string>
+    <string name="message">Type a message…</string>
     <string name="send">Send</string>
 
     <!-- Common -->
