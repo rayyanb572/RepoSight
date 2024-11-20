@@ -78,59 +78,48 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/message_input_layout"
+                android:id="@+id/messageInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/message"
-                android:background="@drawable/circle_button_bg"
-                app:boxBackgroundMode="filled"
-                app:boxBackgroundColor="@color/white"
-                app:boxCornerRadiusTopStart="24dp"
-                app:boxCornerRadiusTopEnd="24dp"
-                app:boxCornerRadiusBottomStart="24dp"
-                app:boxCornerRadiusBottomEnd="24dp"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/message_input_icon"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintEnd_toStartOf="@id/sendButton"
+                app:boxStrokeColor="@color/soft_blue">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/message_input_text"
+                    android:id="@+id/messageInput"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/circle_text_bg"
-                    android:inputType="text"
-                    android:padding="12dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/message"
                     android:textColor="@color/soft_blue"
-                    android:textColorHint="@color/soft_blue" />
+                    android:background="@null" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
-                android:id="@+id/message_input_icon"
+                android:id="@+id/sendButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/circle_button_bg"
-                android:contentDescription="@string/send"
                 android:padding="8dp"
                 android:src="@drawable/ic_send"
-                app:tint="@color/white"
-                app:layout_constraintStart_toEndOf="@+id/message_input_layout"
+                android:contentDescription="@string/send"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="@+id/message_input_layout" />
-
+                app:tint="@color/white" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
         <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -163,31 +152,20 @@
                 android:layout_marginBottom="8dp">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/search_input_layout"
+                    android:id="@+id/searchInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:hint="@string/search_documents"
-                    android:background="@drawable/circle_button_bg"
-                    app:boxBackgroundMode="filled"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxCornerRadiusTopStart="24dp"
-                    app:boxCornerRadiusTopEnd="24dp"
-                    app:boxCornerRadiusBottomStart="24dp"
-                    app:boxCornerRadiusBottomEnd="24dp"
-                    app:boxStrokeWidth="0dp"
-                    app:boxStrokeWidthFocused="0dp">
+                    android:layout_marginBottom="8dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/searchInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
+                        android:hint="@string/search_documents"
                         android:textColor="@color/soft_blue"
-                        android:textColorHint="@color/soft_blue"
                         android:paddingStart="48dp"
                         android:paddingEnd="48dp"
-                        android:hint="@string/search_documents" />
+                        android:inputType="text"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageView

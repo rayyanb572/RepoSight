@@ -4,14 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.example.myapplication.data.datastore.DataStoreManager
 import com.example.myapplication.ui.adapter.ChatViewModel
 import com.example.myapplication.ui.feature.home.HomeActivity
 import com.example.myapplication.ui.feature.user.LoginActivity
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -25,11 +22,12 @@ class MainActivity : AppCompatActivity() {
         dataStoreManager = DataStoreManager(this)
 
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                val isLoggedIn = dataStoreManager.isLoggedIn.first()
+            dataStoreManager.isLoggedIn.collect { isLoggedIn ->
                 if (isLoggedIn) {
+                    android.util.Log.d("MainActivity", "User is logged in")
                     navigateToHome()
                 } else {
+                    android.util.Log.d("MainActivity", "User is not logged in")
                     navigateToLogin()
                 }
             }
@@ -37,13 +35,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToHome() {
-        val intent = Intent(this, HomeActivity::class.java)
+        val intent = Intent(this, HomeActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
         startActivity(intent)
         finish()
     }
 
     private fun navigateToLogin() {
-        val intent = Intent(this, LoginActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
         startActivity(intent)
         finish()
     }

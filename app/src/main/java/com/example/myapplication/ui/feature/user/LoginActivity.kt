@@ -1,15 +1,15 @@
 package com.example.myapplication.ui.feature.user
 
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.example.myapplication.databinding.ActivityLoginBinding
 import android.content.Intent
+import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.myapplication.R
 import com.example.myapplication.data.datastore.DataStoreManager
+import com.example.myapplication.databinding.ActivityLoginBinding
 import com.example.myapplication.ui.feature.main.MainActivity
 import kotlinx.coroutines.launch
 
@@ -18,6 +18,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: AuthViewModel by viewModels()
     private lateinit var dataStoreManager: DataStoreManager
+
+    private var activeToast: Toast? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,17 +40,13 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupViews() {
         binding.loginButton.setOnClickListener {
-            val username = binding.emailInput.text.toString().trim()
+            val email = binding.emailInput.text.toString().trim()
             val password = binding.passwordInput.text.toString().trim()
 
-            if (username.isNotEmpty() && password.isNotEmpty()) {
-
-                lifecycleScope.launch {
-                    dataStoreManager.setLoggedIn(true)
-                    navigateToMainActivity()
-                }
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                viewModel.login(email, password)
             } else {
-                Toast.makeText(this, "Please enter valid credentials", Toast.LENGTH_SHORT).show()
+                showToast("Please enter valid credentials")
             }
         }
     }
@@ -59,16 +57,16 @@ class LoginActivity : AppCompatActivity() {
                 is AuthViewModel.AuthState.Loading -> {
                     binding.loginButton.isEnabled = false
                 }
-
                 is AuthViewModel.AuthState.Success -> {
-                    navigateToMainActivity()
+                    lifecycleScope.launch {
+                        dataStoreManager.setLoggedIn(true)
+                        navigateToMainActivity()
+                    }
                 }
-
                 is AuthViewModel.AuthState.Error -> {
                     binding.loginButton.isEnabled = true
                     showToast(state.message)
                 }
-
                 else -> {
                     binding.loginButton.isEnabled = true
                 }
@@ -84,10 +82,13 @@ class LoginActivity : AppCompatActivity() {
     private fun navigateToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        finish() // Close LoginActivity to prevent returning to it
+        finish()
     }
 
     private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        activeToast?.cancel()
+        activeToast = Toast.makeText(this, message, Toast.LENGTH_SHORT).apply {
+            show()
+        }
     }
 }

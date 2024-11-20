@@ -37,6 +37,11 @@ class HomeActivity : AppCompatActivity() {
         dataStoreManager = DataStoreManager(this)
         setContentView(binding.root)
 
+        binding.messageInputLayout.setEndIconOnClickListener {
+            val message = binding.messageInput.text.toString()
+
+        }
+
         setupToolbar()
         setupRecyclerViews()
         setupSearchFeature()
@@ -50,8 +55,9 @@ class HomeActivity : AppCompatActivity() {
         }
     }
     private fun navigateToLogin() {
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        val intent = Intent(this, LoginActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
         startActivity(intent)
         finish()
     }
@@ -82,7 +88,14 @@ class HomeActivity : AppCompatActivity() {
                 navigateToLogin()
             }
         }
-
+        fun showToast(message: String) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
+        viewModel.error.observe(this) { error ->
+            if (error.isNotEmpty() && !isFinishing && !isDestroyed) {
+                showToast(error)
+            }
+        }
     }
 
     private fun setupSearchFeature() {
