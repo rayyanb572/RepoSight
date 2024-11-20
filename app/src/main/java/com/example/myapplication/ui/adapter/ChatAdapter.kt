@@ -13,9 +13,9 @@ import com.example.myapplication.R
 
 class ChatAdapter : ListAdapter<Message, ChatAdapter.ChatViewHolder>(MessageDiffCallback()) {
 
-    private val messages = mutableListOf<Pair<Spannable, Boolean>>()  // Use Spannable instead of String
+    private val messages = mutableListOf<Pair<Spannable, Boolean>>()
 
-    fun addMessage(message: Spannable, isUser: Boolean) {  // Accept Spannable
+    fun addMessage(message: Spannable, isUser: Boolean) {
         messages.add(Pair(message, isUser))
         notifyItemInserted(messages.size - 1)
     }
@@ -34,15 +34,36 @@ class ChatAdapter : ListAdapter<Message, ChatAdapter.ChatViewHolder>(MessageDiff
 
     class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val messageText: TextView = itemView.findViewById(R.id.messageText)
+        private val botMessage: TextView = itemView.findViewById(R.id.botMessage)
 
         fun bind(message: Spannable, isUser: Boolean) {
-            messageText.text = message  // Set Spannable directly
+            messageText.text = message
+            botMessage.text = message
+
             val background = if (isUser) {
-                R.drawable.bubble_background // User message bubble
+                R.drawable.bubble_background
             } else {
-                R.drawable.bubble_background_bot // Bot message bubble
+                R.drawable.bubble_background_bot
             }
+
             messageText.setBackgroundResource(background)
+            botMessage.setBackgroundResource(background)
+
+            if (isUser) {
+                messageText.visibility = View.VISIBLE
+                botMessage.visibility = View.GONE
+                messageText.layoutParams = (messageText.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                    marginStart = 32
+                    marginEnd = 8
+                }
+            } else {
+                botMessage.visibility = View.VISIBLE
+                messageText.visibility = View.GONE
+                botMessage.layoutParams = (botMessage.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                    marginStart = 8
+                    marginEnd = 32
+                }
+            }
         }
     }
 
