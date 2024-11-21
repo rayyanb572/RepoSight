@@ -9,7 +9,7 @@ import com.example.myapplication.data.remote.NetworkModule.apiService
 import kotlinx.coroutines.launch
 
 class ChatViewModel : ViewModel() {
-    private val _chatResponse = MutableLiveData<String>() // Holds the raw response text
+    private val _chatResponse = MutableLiveData<String>()
     val chatResponse: LiveData<String> get() = _chatResponse
 
     private val _relatedDocuments = MutableLiveData<List<RelatedDocument>?>()
@@ -26,7 +26,6 @@ class ChatViewModel : ViewModel() {
             _isLoading.postValue(true)
             try {
 
-                // Make API call
                 val response = apiService.chat(
                     ChatRequest(
                         query = message,
@@ -40,7 +39,7 @@ class ChatViewModel : ViewModel() {
                     Log.d("Chat_Response", "Response Body: $body")
                     Log.d("ChatResponse", "Response Body: $body")
                     if (body != null) {
-                        _chatResponse.postValue(body.response) // Assuming `response` contains the text
+                        _chatResponse.postValue(body.response)
                     } else {
                         _error.postValue("No response received.")
                     }
@@ -65,7 +64,6 @@ class ChatViewModel : ViewModel() {
                     val body = response.body()
                     Log.d("API_SUCCESS", "Response Body: $body")
 
-                    // Access the 'related_documents' from the response body
                     _relatedDocuments.postValue(body?.relatedDocuments)
                 } else {
                     val errorBody = response.errorBody()?.string()

@@ -52,16 +52,19 @@ class ChatAdapter : ListAdapter<Message, ChatAdapter.ChatViewHolder>(MessageDiff
             if (isUser) {
                 messageText.visibility = View.VISIBLE
                 botMessage.visibility = View.GONE
+                messageText.text = message
                 messageText.layoutParams = (messageText.layoutParams as ViewGroup.MarginLayoutParams).apply {
-                    marginStart = 32
-                    marginEnd = 8
+                    marginStart = 150
+                    marginEnd = 10
                 }
             } else {
                 botMessage.visibility = View.VISIBLE
                 messageText.visibility = View.GONE
+                botMessage.text = message
+                botMessage.setBackgroundResource(R.drawable.bubble_background_bot)
                 botMessage.layoutParams = (botMessage.layoutParams as ViewGroup.MarginLayoutParams).apply {
-                    marginStart = 8
-                    marginEnd = 32
+                    marginStart = 10
+                    marginEnd = 150
                 }
             }
         }

@@ -38,15 +38,24 @@ class HomeActivity : AppCompatActivity() {
         dataStoreManager = DataStoreManager(this)
         setContentView(binding.root)
 
-        binding.messageInputLayout.setEndIconOnClickListener {
-            val message = binding.messageInput.text.toString()
-
-        }
-
         setupToolbar()
         setupRecyclerViews()
         setupSearchFeature()
         observeViewModel()
+
+        binding.messageInputLayout.setEndIconOnClickListener { sendMessage() }
+        binding.sendButton.setOnClickListener { sendMessage() }
+    }
+
+    private fun sendMessage() {
+        val message = binding.messageInput.text.toString()
+        if (message.isNotEmpty()) {
+            chatAdapter.addMessage(SpannableString(message), true)
+            viewModel.sendMessage(message, context = "default")
+            binding.messageInput.text?.clear()
+        } else {
+            Toast.makeText(this, "Please enter a message", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupToolbar() {
@@ -54,7 +63,15 @@ class HomeActivity : AppCompatActivity() {
         binding.sidebarButton.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
+
+        binding.signOutButton.setOnClickListener {
+            lifecycleScope.launch {
+                dataStoreManager.setLoggedIn(false)
+                navigateToLogin()
+            }
+        }
     }
+
     private fun navigateToLogin() {
         val intent = Intent(this, LoginActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -82,20 +99,6 @@ class HomeActivity : AppCompatActivity() {
         binding.documentsRecyclerView.apply {
             adapter = documentAdapter
             layoutManager = LinearLayoutManager(this@HomeActivity)
-        }
-        binding.signOutButton.setOnClickListener {
-            lifecycleScope.launch {
-                dataStoreManager.setLoggedIn(false)
-                navigateToLogin()
-            }
-        }
-        fun showToast(message: String) {
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-        }
-        viewModel.error.observe(this) { error ->
-            if (error.isNotEmpty() && !isFinishing && !isDestroyed) {
-                showToast(error)
-            }
         }
     }
 
