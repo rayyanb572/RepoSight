@@ -1,6 +1,7 @@
 package com.example.myapplication.data.room
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -15,6 +16,7 @@ abstract class ChatDatabase : RoomDatabase() {
 
         fun getDatabase(context: Context): ChatDatabase {
             return INSTANCE ?: synchronized(this) {
+                Log.d("ChatDatabase", "Creating new instance")
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     ChatDatabase::class.java,

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.SpannableString
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -56,8 +57,13 @@ class HomeActivity : AppCompatActivity() {
             val chat = Chat(message = message, isSentByUser = true)
 
             lifecycleScope.launch {
-                val database = ChatDatabase.getDatabase(this@HomeActivity)
-                database.chatDao().insertChat(chat)
+                try {
+                    val database = ChatDatabase.getDatabase(this@HomeActivity)
+                    database.chatDao().insertChat(chat)
+                    Log.d("ChatDatabase", "Message inserted: $message")
+                } catch (e: Exception) {
+                    Log.e("ChatDatabase", "Error inserting message", e)
+                }
             }
 
             chatAdapter.addMessage(SpannableString(message), true)
