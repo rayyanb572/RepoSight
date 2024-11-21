@@ -45,7 +45,7 @@ class DocumentAdapter(
             isSelected: Boolean,
             onCheckedChange: (RelatedDocument, Boolean) -> Unit
         ) {
-            binding.documentTitle.text = document.title
+            binding.documentTitle.text = document.judul
             binding.documentUrl.text = document.url
             binding.documentUrl.setOnClickListener {
 
@@ -64,7 +64,7 @@ class DocumentAdapter(
 
     class DocumentDiffCallback : DiffUtil.ItemCallback<RelatedDocument>() {
         override fun areItemsTheSame(oldItem: RelatedDocument, newItem: RelatedDocument) =
-            oldItem.title == newItem.title
+            oldItem.judul == newItem.judul
 
         override fun areContentsTheSame(oldItem: RelatedDocument, newItem: RelatedDocument) =
             oldItem == newItem

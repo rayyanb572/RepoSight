@@ -1,7 +1,7 @@
 package com.example.myapplication.data.local
 
 data class RelatedDocument(
-    val title: String,
-    val abstract: String,
+    val judul: String,
+    val abstrak: String,
     val url: String
 )

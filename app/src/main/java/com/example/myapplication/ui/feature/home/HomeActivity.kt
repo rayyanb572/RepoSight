@@ -126,7 +126,7 @@ class HomeActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     private fun addDocumentChip(document: RelatedDocument) {
         val chip = Chip(this).apply {
-            text = document.title
+            text = document.judul
             isCloseIconVisible = true
             setOnCloseIconClickListener {
                 selectedDocuments.remove(document)
@@ -141,7 +141,7 @@ class HomeActivity : AppCompatActivity() {
         val chipCount = binding.selectedDocumentsGroup.childCount
         for (i in 0 until chipCount) {
             val chip = binding.selectedDocumentsGroup.getChildAt(i) as? Chip
-            if (chip?.text == document.title) {
+            if (chip?.text == document.judul) {
                 binding.selectedDocumentsGroup.removeView(chip)
                 break
             }
