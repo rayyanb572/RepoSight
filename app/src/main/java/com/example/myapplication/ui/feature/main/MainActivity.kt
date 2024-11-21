@@ -2,6 +2,7 @@ package com.example.myapplication.ui.feature.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -25,9 +26,11 @@ class MainActivity : AppCompatActivity() {
             dataStoreManager.isLoggedIn.collect { isLoggedIn ->
                 if (isLoggedIn) {
                     android.util.Log.d("MainActivity", "User is logged in")
+                    Toast.makeText(this@MainActivity, "Login status: Logged in", Toast.LENGTH_SHORT).show()
                     navigateToHome()
                 } else {
                     android.util.Log.d("MainActivity", "User is not logged in")
+                    Toast.makeText(this@MainActivity, "Login status: Not logged in", Toast.LENGTH_SHORT).show()
                     navigateToLogin()
                 }
             }
@@ -35,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToHome() {
+        Toast.makeText(this, "Navigating to Home", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, HomeActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
@@ -43,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToLogin() {
+        Toast.makeText(this, "Navigating to Login", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, LoginActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }

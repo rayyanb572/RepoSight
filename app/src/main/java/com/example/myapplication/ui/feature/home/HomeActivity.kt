@@ -53,6 +53,7 @@ class HomeActivity : AppCompatActivity() {
             chatAdapter.addMessage(SpannableString(message), true)
             viewModel.sendMessage(message, context = "default")
             binding.messageInput.text?.clear()
+            Toast.makeText(this, "Message sent successfully", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(this, "Please enter a message", Toast.LENGTH_SHORT).show()
         }
@@ -67,12 +68,14 @@ class HomeActivity : AppCompatActivity() {
         binding.signOutButton.setOnClickListener {
             lifecycleScope.launch {
                 dataStoreManager.setLoggedIn(false)
+                Toast.makeText(this@HomeActivity, "Signed out successfully", Toast.LENGTH_SHORT).show()
                 navigateToLogin()
             }
         }
     }
 
     private fun navigateToLogin() {
+        Toast.makeText(this, "Navigating to Login", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, LoginActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
@@ -91,9 +94,11 @@ class HomeActivity : AppCompatActivity() {
             if (isChecked) {
                 selectedDocuments.add(document)
                 addDocumentChip(document)
+                Toast.makeText(this@HomeActivity, "Document selected: ${document.judul}", Toast.LENGTH_SHORT).show()
             } else {
                 selectedDocuments.remove(document)
                 removeDocumentChip(document)
+                Toast.makeText(this@HomeActivity, "Document deselected: ${document.judul}", Toast.LENGTH_SHORT).show()
             }
         }
         binding.documentsRecyclerView.apply {
@@ -120,6 +125,7 @@ class HomeActivity : AppCompatActivity() {
             val query = binding.searchInput.text.toString()
             if (query.isNotEmpty()) {
                 viewModel.searchRelatedDocuments(query)
+                Toast.makeText(this, "Search initiated for: $query", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Please enter a search query", Toast.LENGTH_SHORT).show()
             }
@@ -135,6 +141,7 @@ class HomeActivity : AppCompatActivity() {
                 selectedDocuments.remove(document)
                 binding.selectedDocumentsGroup.removeView(this)
                 documentAdapter.notifyDataSetChanged()
+                Toast.makeText(this@HomeActivity, "Document removed: ${document.judul}", Toast.LENGTH_SHORT).show()
             }
         }
         binding.selectedDocumentsGroup.addView(chip)

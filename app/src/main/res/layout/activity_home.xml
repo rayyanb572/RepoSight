@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
@@ -30,8 +31,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"
+                    android:minHeight="60dip"
                     android:text="@string/app"
                     android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/os_bold"
                     app:icon="@drawable/ic_document_list"
                     app:iconTint="@android:color/white" />
 
@@ -86,7 +90,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-                app:boxStrokeColor="@color/soft_blue"
+                app:boxStrokeColor="@color/blue"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/sendButton"
                 app:layout_constraintStart_toStartOf="parent">

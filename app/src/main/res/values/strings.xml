@@ -1,6 +1,6 @@
 <resources>
     <!-- Login Screen -->
-    <string name="login">Login</string>
+    <string name="login">LOGIN</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login_button">Login</string>
@@ -8,7 +8,7 @@
     <string name="please_login">Already have an account? Login</string>
 
     <!-- Sign Up Screen -->
-    <string name="create_account">Create Account</string>
+    <string name="create_account">CREATE ACCOUNT</string>
     <string name="full_name">Full Name</string>
     <string name="email_layout">Email</string>
     <string name="password_layout">Password</string>

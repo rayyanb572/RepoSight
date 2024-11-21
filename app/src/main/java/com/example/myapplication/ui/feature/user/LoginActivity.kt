@@ -12,6 +12,7 @@ import com.example.myapplication.data.datastore.DataStoreManager
 import com.example.myapplication.databinding.ActivityLoginBinding
 import com.example.myapplication.ui.feature.main.MainActivity
 import kotlinx.coroutines.launch
+import androidx.core.widget.addTextChangedListener
 
 class LoginActivity : AppCompatActivity() {
 
@@ -31,11 +32,23 @@ class LoginActivity : AppCompatActivity() {
 
         val signupLink = findViewById<TextView>(R.id.signupLink)
         signupLink.setOnClickListener {
+            showToast("Navigating to Sign Up...")
             navigateToSignup()
         }
 
+        setupInputListeners()
         setupViews()
         observeAuthState()
+    }
+
+    private fun setupInputListeners() {
+        binding.emailInput.addTextChangedListener { text ->
+            validateEmail(text.toString())
+        }
+
+        binding.passwordInput.addTextChangedListener { text ->
+            validatePassword(text.toString())
+        }
     }
 
     private fun setupViews() {
@@ -43,11 +56,33 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.emailInput.text.toString().trim()
             val password = binding.passwordInput.text.toString().trim()
 
-            if (email.isNotEmpty() && password.isNotEmpty()) {
+            val isEmailValid = validateEmail(email)
+            val isPasswordValid = validatePassword(password)
+
+            if (isEmailValid && isPasswordValid) {
+                showToast("Attempting to log in...")
                 viewModel.login(email, password)
-            } else {
-                showToast("Please enter valid credentials")
             }
+        }
+    }
+
+    private fun validateEmail(email: String): Boolean {
+        return if (!email.endsWith("@gmail.com")) {
+            binding.emailLayout.error = "Please input valid email"
+            false
+        } else {
+            binding.emailLayout.error = null
+            true
+        }
+    }
+
+    private fun validatePassword(password: String): Boolean {
+        return if (password.length < 6) {
+            binding.passwordLayout.error = "Password at least 6 characters"
+            false
+        } else {
+            binding.passwordLayout.error = null
+            true
         }
     }
 
@@ -58,6 +93,7 @@ class LoginActivity : AppCompatActivity() {
                     binding.loginButton.isEnabled = false
                 }
                 is AuthViewModel.AuthState.Success -> {
+                    showToast("Login Successful!")
                     lifecycleScope.launch {
                         dataStoreManager.setLoggedIn(true)
                         navigateToMainActivity()
