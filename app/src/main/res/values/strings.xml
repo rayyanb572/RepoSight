@@ -29,4 +29,5 @@
     <!-- Common -->
     <string name="sign_out">Sign out</string>
     <string name="clear_text">Clear text</string>
+    <string name="history">History</string>
 </resources>

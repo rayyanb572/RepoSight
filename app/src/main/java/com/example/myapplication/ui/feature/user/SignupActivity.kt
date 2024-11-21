@@ -73,7 +73,7 @@ class SignupActivity : AppCompatActivity() {
 
     private fun validateEmail(email: String): Boolean {
         return if (!email.endsWith("@gmail.com")) {
-            binding.emailLayout.error = "Please input valid email"
+            binding.emailLayout.error = "Please enter a valid email"
             false
         } else {
             binding.emailLayout.error = null
@@ -83,7 +83,7 @@ class SignupActivity : AppCompatActivity() {
 
     private fun validatePassword(password: String): Boolean {
         return if (password.length < 6) {
-            binding.passwordLayout.error = "Password at least 6 characters"
+            binding.passwordLayout.error = "Password must be at least 6 characters long"
             false
         } else {
             binding.passwordLayout.error = null

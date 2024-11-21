@@ -19,7 +19,9 @@ import com.example.myapplication.data.local.RelatedDocument
 import com.example.myapplication.ui.adapter.ChatAdapter
 import com.example.myapplication.ui.adapter.ChatViewModel
 import com.example.myapplication.ui.adapter.DocumentAdapter
+import com.example.myapplication.ui.feature.history.HistoryActivity
 import com.example.myapplication.ui.feature.user.LoginActivity
+import com.example.myapplication.data.room.Chat
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.launch
 
@@ -50,6 +52,13 @@ class HomeActivity : AppCompatActivity() {
     private fun sendMessage() {
         val message = binding.messageInput.text.toString()
         if (message.isNotEmpty()) {
+            val chat = Chat(message = message, isSentByUser = true)
+
+            lifecycleScope.launch {
+                val database = ChatDatabase.getDatabase(this@HomeActivity)
+                database.chatDao().insertChat(chat)
+            }
+
             chatAdapter.addMessage(SpannableString(message), true)
             viewModel.sendMessage(message, context = "default")
             binding.messageInput.text?.clear()
@@ -65,6 +74,10 @@ class HomeActivity : AppCompatActivity() {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
 
+        binding.historyButton.setOnClickListener {
+            navigateToHistory()
+        }
+
         binding.signOutButton.setOnClickListener {
             lifecycleScope.launch {
                 dataStoreManager.setLoggedIn(false)
@@ -72,6 +85,12 @@ class HomeActivity : AppCompatActivity() {
                 navigateToLogin()
             }
         }
+    }
+
+    private fun navigateToHistory() {
+        Toast.makeText(this, "Navigating to History", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, HistoryActivity::class.java)
+        startActivity(intent)
     }
 
     private fun navigateToLogin() {

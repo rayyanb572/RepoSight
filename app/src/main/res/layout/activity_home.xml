@@ -31,28 +31,43 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"
+                    android:fontFamily="@font/os_bold"
                     android:minHeight="60dip"
                     android:text="@string/app"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
-                    android:fontFamily="@font/os_bold"
                     app:icon="@drawable/ic_document_list"
                     app:iconTint="@android:color/white" />
 
-                <ImageButton
-                    android:id="@+id/signOutButton"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_margin="8dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/sign_out"
-                    app:srcCompat="@drawable/ic_logout"
-                    app:tint="@android:color/white" />
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/historyButton"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/history"
+                        app:srcCompat="@drawable/ic_history"
+                        app:tint="@android:color/white" />
+
+                    <ImageButton
+                        android:id="@+id/signOutButton"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/sign_out"
+                        app:srcCompat="@drawable/ic_logout"
+                        app:tint="@android:color/white" />
+                </LinearLayout>
 
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
+
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/selectedDocumentsGroup"
