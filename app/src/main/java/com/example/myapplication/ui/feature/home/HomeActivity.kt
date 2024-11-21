@@ -22,6 +22,7 @@ import com.example.myapplication.ui.adapter.DocumentAdapter
 import com.example.myapplication.ui.feature.history.HistoryActivity
 import com.example.myapplication.ui.feature.user.LoginActivity
 import com.example.myapplication.data.room.Chat
+import com.example.myapplication.data.room.ChatDatabase
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.launch
 

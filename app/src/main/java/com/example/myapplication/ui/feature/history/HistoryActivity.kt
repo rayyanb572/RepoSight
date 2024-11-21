@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.databinding.ActivityHistoryBinding
 import com.example.myapplication.ui.adapter.ChatAdapter
 import com.example.myapplication.data.local.Message
+import com.example.myapplication.data.room.ChatDatabase
 import kotlinx.coroutines.launch
 
 class HistoryActivity : AppCompatActivity() {
