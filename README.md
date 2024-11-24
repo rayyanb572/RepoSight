@@ -2,7 +2,7 @@
 
 
 
-<b> Team ID : C242-PS517
+<b> Team ID : C242-PS517 </b>
 | Name | Student ID | University | Learning Path |
 | --- | --- | --- | --- |
 | Dewa Fahtiar Fisabila | M001B4KY1073 | IPB University | Machine Learning |
