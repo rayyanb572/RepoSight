@@ -1,7 +1,7 @@
 # RepoSight: Repository Insighter
 
 
-<b> Product-based Capstone Project
+
 <b> Team ID : C242-PS517
 | Name | Student ID | University | Learning Path |
 | --- | --- | --- | --- |
