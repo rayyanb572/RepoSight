@@ -1,4 +1,5 @@
 package com.example.myapplication.ui.adapter
+
 import com.example.myapplication.data.local.RelatedDocument
 import android.content.Intent
 import android.net.Uri
@@ -26,13 +27,21 @@ class DocumentAdapter(
     }
 
     override fun onBindViewHolder(holder: DocumentViewHolder, position: Int) {
-        holder.bind(getItem(position), selectedDocuments.contains(getItem(position))) { document, isChecked ->
+        val document = getItem(position)
+        holder.bind(document, selectedDocuments.contains(document)) { doc, isChecked ->
             if (isChecked) {
-                selectedDocuments.add(document)
+                selectedDocuments.add(doc)
             } else {
-                selectedDocuments.remove(document)
+                selectedDocuments.remove(doc)
             }
-            onDocumentSelected(document, isChecked)
+            onDocumentSelected(doc, isChecked)
+        }
+    }
+
+    fun deselectDocument(document: RelatedDocument) {
+        val index = currentList.indexOf(document)
+        if (index != -1) {
+            notifyItemChanged(index)
         }
     }
 
@@ -47,17 +56,20 @@ class DocumentAdapter(
         ) {
             binding.documentTitle.text = document.judul
             binding.documentUrl.text = document.url
-            binding.documentUrl.setOnClickListener {
+            binding.documentCheckbox.isChecked = isSelected
 
+            binding.documentUrl.setOnClickListener {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(document.url))
                 itemView.context.startActivity(intent)
             }
-            binding.documentCheckbox.isChecked = isSelected
-            binding.root.setOnClickListener {
-                binding.documentCheckbox.isChecked = !binding.documentCheckbox.isChecked
-            }
+
+            binding.documentCheckbox.setOnCheckedChangeListener(null)
             binding.documentCheckbox.setOnCheckedChangeListener { _, isChecked ->
                 onCheckedChange(document, isChecked)
+            }
+
+            binding.root.setOnClickListener {
+                binding.documentCheckbox.isChecked = !binding.documentCheckbox.isChecked
             }
         }
     }

@@ -2,7 +2,7 @@
     <!-- Base application theme -->
     <style name="Base.Theme.IPBgpt" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/soft_blue</item>
-        <item name="android:textColorPrimary">@color/soft_blue</item>
+        <item name="android:textColorPrimary">@color/magenta_accent</item>
         <item name="android:textColorSecondary">@color/soft_blue</item>
     </style>
 

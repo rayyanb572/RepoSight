@@ -36,7 +36,7 @@
                     android:text="@string/app"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
-                    app:icon="@drawable/ic_document_list"
+                    app:icon="@drawable/ic_menu"
                     app:iconTint="@android:color/white" />
 
                 <LinearLayout
@@ -68,7 +68,6 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/selectedDocumentsGroup"
             android:layout_width="0dp"
@@ -83,7 +82,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="8dp"
-            android:layout_marginBottom="574dp"
             android:clipToPadding="false"
             android:overScrollMode="never"
             android:paddingBottom="8dp"
@@ -92,6 +90,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/selectedDocumentsGroup"
             tools:listitem="@layout/chat_bubble" />
+
+        <Button
+            android:id="@+id/retryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:text="@string/try_again"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chatRecyclerView" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -108,7 +119,8 @@
                 app:boxStrokeColor="@color/blue"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/sendButton"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/messageInput"
@@ -131,8 +143,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:tint="@color/white" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ProgressBar
                 android:id="@+id/progressBar"

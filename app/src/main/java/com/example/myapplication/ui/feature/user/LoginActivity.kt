@@ -32,7 +32,6 @@ class LoginActivity : AppCompatActivity() {
 
         val signupLink = findViewById<TextView>(R.id.signupLink)
         signupLink.setOnClickListener {
-            showToast("Navigating to Sign Up...")
             navigateToSignup()
         }
 
@@ -60,7 +59,6 @@ class LoginActivity : AppCompatActivity() {
             val isPasswordValid = validatePassword(password)
 
             if (isEmailValid && isPasswordValid) {
-                showToast("Attempting to log in...")
                 viewModel.login(email, password)
             }
         }

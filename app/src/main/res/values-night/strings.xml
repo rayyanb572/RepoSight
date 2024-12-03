@@ -26,6 +26,7 @@
     <string name="send">Send</string>
 
     <!-- Common -->
+    <string name="app_name">RepoSights</string>
     <string name="sign_out">Sign out</string>
     <string name="clear_text">Clear text</string>
     <string name="history">History</string>
@@ -33,4 +34,5 @@
     <string name="sender">Sender</string>
     <string name="message_content_here">Message content here</string>
     <string name="time">10:30 AM</string>
+    <string name="try_again">Try Again</string>
 </resources>

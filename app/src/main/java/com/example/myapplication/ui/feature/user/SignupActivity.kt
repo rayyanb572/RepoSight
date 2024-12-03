@@ -38,7 +38,7 @@ class SignupActivity : AppCompatActivity() {
             }
 
             if (isEmailValid && isPasswordValid && fullName.isNotEmpty()) {
-                showToast("Attempting to Sign Up...")
+                showToast("SignUp successfully")
                 authViewModel.signUp(email, password, fullName)
             }
         }

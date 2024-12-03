@@ -8,6 +8,7 @@ import android.text.SpannableString
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -17,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.databinding.ActivityHomeBinding
 import com.example.myapplication.data.datastore.DataStoreManager
 import com.example.myapplication.data.local.RelatedDocument
+import com.example.myapplication.data.remote.DocumentRequest
+import com.example.myapplication.data.remote.NetworkModule.apiService
 import com.example.myapplication.ui.adapter.ChatAdapter
 import com.example.myapplication.ui.adapter.ChatViewModel
 import com.example.myapplication.ui.adapter.DocumentAdapter
@@ -25,6 +28,7 @@ import com.example.myapplication.ui.feature.user.LoginActivity
 import com.example.myapplication.data.room.Chat
 import com.example.myapplication.data.room.ChatDatabase
 import com.google.android.material.chip.Chip
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeActivity : AppCompatActivity() {
@@ -47,8 +51,18 @@ class HomeActivity : AppCompatActivity() {
         setupSearchFeature()
         observeViewModel()
 
+        supportActionBar?.title = ""
+
         binding.messageInputLayout.setEndIconOnClickListener { sendMessage() }
         binding.sendButton.setOnClickListener { sendMessage() }
+
+        val retryButton: Button = binding.retryButton
+
+        retryButton.setOnClickListener {
+            binding.progressBar.visibility = View.VISIBLE
+            retryButton.visibility = View.GONE
+            loadDataFromApi()
+        }
     }
 
     private fun sendMessage() {
@@ -56,7 +70,7 @@ class HomeActivity : AppCompatActivity() {
         if (message.isNotEmpty()) {
             val chat = Chat(message = message, isSentByUser = true)
 
-            lifecycleScope.launch {
+            lifecycleScope.launch(Dispatchers.IO) {
                 try {
                     val database = ChatDatabase.getDatabase(this@HomeActivity)
                     database.chatDao().insertChat(chat)
@@ -69,10 +83,14 @@ class HomeActivity : AppCompatActivity() {
             chatAdapter.addMessage(SpannableString(message), true)
             viewModel.sendMessage(message, context = "default")
             binding.messageInput.text?.clear()
-            Toast.makeText(this, "Message sent successfully", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(this, "Please enter a message", Toast.LENGTH_SHORT).show()
         }
+        binding.messageInputLayout.setEndIconOnClickListener {
+            binding.messageInput.text?.clear()
+            Toast.makeText(this, "Message cleared", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun setupToolbar() {
@@ -86,22 +104,33 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.signOutButton.setOnClickListener {
-            lifecycleScope.launch {
-                dataStoreManager.setLoggedIn(false)
-                Toast.makeText(this@HomeActivity, "Signed out successfully", Toast.LENGTH_SHORT).show()
-                navigateToLogin()
-            }
+            showLogoutConfirmationDialog()
         }
     }
 
+    private fun showLogoutConfirmationDialog() {
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Logout Confirmation")
+            .setMessage("Are you sure you want to log out?")
+            .setPositiveButton("Yes") { _, _ ->
+                lifecycleScope.launch {
+                    dataStoreManager.setLoggedIn(false)
+                    Toast.makeText(this@HomeActivity, "Signed out successfully", Toast.LENGTH_SHORT).show()
+                    navigateToLogin()
+                }
+            }
+            .setNegativeButton("No", null)
+            .create()
+
+        dialog.show()
+    }
+
     private fun navigateToHistory() {
-        Toast.makeText(this, "Navigating to History", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, HistoryActivity::class.java)
         startActivity(intent)
     }
 
     private fun navigateToLogin() {
-        Toast.makeText(this, "Navigating to Login", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, LoginActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
@@ -133,6 +162,34 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private fun addDocumentChip(document: RelatedDocument) {
+        val chip = Chip(this).apply {
+            text = document.judul
+            isCloseIconVisible = true
+            tag = document
+            setOnCloseIconClickListener {
+                selectedDocuments.remove(document)
+                binding.selectedDocumentsGroup.removeView(this)
+                documentAdapter.deselectDocument(document)
+                Toast.makeText(this@HomeActivity, "Document removed: ${document.judul}", Toast.LENGTH_SHORT).show()
+            }
+        }
+        binding.selectedDocumentsGroup.addView(chip)
+    }
+
+    private fun removeDocumentChip(document: RelatedDocument) {
+        val chipCount = binding.selectedDocumentsGroup.childCount
+        for (i in 0 until chipCount) {
+            val chip = binding.selectedDocumentsGroup.getChildAt(i) as? Chip
+            if (chip?.tag == document) {
+                binding.selectedDocumentsGroup.removeView(chip)
+                documentAdapter.deselectDocument(document)
+                break
+            }
+        }
+    }
+
     private fun setupSearchFeature() {
         binding.searchInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -151,35 +208,8 @@ class HomeActivity : AppCompatActivity() {
             val query = binding.searchInput.text.toString()
             if (query.isNotEmpty()) {
                 viewModel.searchRelatedDocuments(query)
-                Toast.makeText(this, "Search initiated for: $query", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Please enter a search query", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun addDocumentChip(document: RelatedDocument) {
-        val chip = Chip(this).apply {
-            text = document.judul
-            isCloseIconVisible = true
-            setOnCloseIconClickListener {
-                selectedDocuments.remove(document)
-                binding.selectedDocumentsGroup.removeView(this)
-                documentAdapter.notifyDataSetChanged()
-                Toast.makeText(this@HomeActivity, "Document removed: ${document.judul}", Toast.LENGTH_SHORT).show()
-            }
-        }
-        binding.selectedDocumentsGroup.addView(chip)
-    }
-
-    private fun removeDocumentChip(document: RelatedDocument) {
-        val chipCount = binding.selectedDocumentsGroup.childCount
-        for (i in 0 until chipCount) {
-            val chip = binding.selectedDocumentsGroup.getChildAt(i) as? Chip
-            if (chip?.text == document.judul) {
-                binding.selectedDocumentsGroup.removeView(chip)
-                break
             }
         }
     }
@@ -205,5 +235,27 @@ class HomeActivity : AppCompatActivity() {
                 Toast.makeText(this, error, Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun loadDataFromApi() {
+        lifecycleScope.launch {
+            try {
+                val response = apiService.getRelatedDocuments(DocumentRequest(title = "Sample", number = 3))
+                if (response.isSuccessful) {
+                    binding.progressBar.visibility = View.GONE
+                    binding.retryButton.visibility = View.GONE
+                } else {
+                    handleError("Failed to load data, try again")
+                }
+            } catch (e: Exception) {
+                handleError("No internet connection")
+            }
+        }
+    }
+
+    private fun handleError(errorMessage: String) {
+        binding.progressBar.visibility = View.GONE
+        binding.retryButton.visibility = View.VISIBLE
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
     }
 }

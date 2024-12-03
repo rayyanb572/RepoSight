@@ -17,5 +17,10 @@
     <color name="success_blue">#66BB6A</color>
     <color name="error_blue">#FF6B6B</color>
     <color name="warning_blue">#FFD54F</color>
+    <color name="green_primary">#3E8B46</color>
+    <color name="blue_light">#8EB1F5</color>
+    <color name="yellow_primary">#FFE36E</color>
+    <color name="magenta_accent">#F78DD2</color>
+
 
 </resources>
