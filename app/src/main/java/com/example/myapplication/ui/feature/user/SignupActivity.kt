@@ -44,7 +44,6 @@ class SignupActivity : AppCompatActivity() {
         }
 
         binding.loginLink.setOnClickListener {
-            showToast("Navigating to Login...")
             navigateToLogin()
         }
     }

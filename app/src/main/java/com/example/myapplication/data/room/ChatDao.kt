@@ -12,4 +12,7 @@ interface ChatDao {
 
     @Query("SELECT * FROM chat_table ORDER BY id ASC")
     fun getAllChats(): LiveData<List<Chat>>
+
+    @Query("DELETE FROM chat_table")
+    suspend fun deleteAllChats()
 }

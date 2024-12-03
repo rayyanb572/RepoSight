@@ -2,9 +2,13 @@ package com.example.myapplication.ui.feature.history
 
 import android.os.Bundle
 import android.text.SpannableString
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityHistoryBinding
 import com.example.myapplication.ui.adapter.ChatAdapter
 import com.example.myapplication.data.local.Message
@@ -24,6 +28,34 @@ class HistoryActivity : AppCompatActivity() {
         setupToolbar()
         setupRecyclerView()
         loadChatHistory()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_history, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_delete_all -> {
+                deleteAllChats()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun deleteAllChats() {
+        lifecycleScope.launch {
+            val database = ChatDatabase.getDatabase(this@HistoryActivity)
+            database.chatDao().deleteAllChats()
+            chatAdapter.submitList(emptyList())
+            showToast("All chat history deleted")
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun setupRecyclerView() {

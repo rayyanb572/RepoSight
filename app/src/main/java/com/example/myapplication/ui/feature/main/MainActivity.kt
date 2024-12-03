@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
                     navigateToHome()
                 } else {
                     android.util.Log.d("MainActivity", "User is not logged in")
-                    Toast.makeText(this@MainActivity, "Login status: Not logged in", Toast.LENGTH_SHORT).show()
                     navigateToLogin()
                 }
             }

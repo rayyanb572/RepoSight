@@ -30,4 +30,8 @@
     <string name="sign_out">Sign out</string>
     <string name="clear_text">Clear text</string>
     <string name="history">History</string>
+    <string name="delete_all">Delete All</string>
+    <string name="sender">Sender</string>
+    <string name="message_content_here">Message content here</string>
+    <string name="time">10:30 AM</string>
 </resources>
