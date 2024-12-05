@@ -6,15 +6,16 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.SpannableString
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityHomeBinding
 import com.example.myapplication.data.datastore.DataStoreManager
 import com.example.myapplication.data.local.RelatedDocument
@@ -65,32 +66,36 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateEmptyState() {
+        val isChatEmpty = chatAdapter.itemCount == 0
+        binding.emptyStateContainer.visibility = if (isChatEmpty) View.VISIBLE else View.GONE
+        binding.chatRecyclerView.visibility = if (isChatEmpty) View.GONE else View.VISIBLE
+    }
+
+    private fun animateMessageAddition() {
+        val anim = AnimationUtils.loadAnimation(this, R.anim.slide_in_bottom)
+        binding.chatRecyclerView.startAnimation(anim)
+    }
+
     private fun sendMessage() {
         val message = binding.messageInput.text.toString()
         if (message.isNotEmpty()) {
             val chat = Chat(message = message, isSentByUser = true)
 
             lifecycleScope.launch(Dispatchers.IO) {
-                try {
-                    val database = ChatDatabase.getDatabase(this@HomeActivity)
-                    database.chatDao().insertChat(chat)
-                    Log.d("ChatDatabase", "Message inserted: $message")
-                } catch (e: Exception) {
-                    Log.e("ChatDatabase", "Error inserting message", e)
-                }
+                ChatDatabase.getDatabase(this@HomeActivity).chatDao().insertChat(chat)
             }
 
             chatAdapter.addMessage(SpannableString(message), true)
-            viewModel.sendMessage(message, context = "default")
             binding.messageInput.text?.clear()
+
+            if (chatAdapter.itemCount == 1) {
+                animateMessageAddition()
+            }
+            updateEmptyState()
         } else {
             Toast.makeText(this, "Please enter a message", Toast.LENGTH_SHORT).show()
         }
-        binding.messageInputLayout.setEndIconOnClickListener {
-            binding.messageInput.text?.clear()
-            Toast.makeText(this, "Message cleared", Toast.LENGTH_SHORT).show()
-        }
-
     }
 
     private fun setupToolbar() {

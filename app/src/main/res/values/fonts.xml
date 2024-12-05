@@ -15,9 +15,4 @@
         </item>
     </string-array>
 
-    <array name="preloaded_fonts" translatable="false">
-        <item>@font/open_sans</item>
-        <item>@font/os_med</item>
-        <item>@font/os_bold</item>
-    </array>
 </resources>

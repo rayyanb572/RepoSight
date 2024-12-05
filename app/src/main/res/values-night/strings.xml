@@ -35,4 +35,6 @@
     <string name="message_content_here">Message content here</string>
     <string name="time">10:30 AM</string>
     <string name="try_again">Try Again</string>
+    <string name="empty_state_message">How can I assist you?</string>
+    <string name="empty_state_image">empty state image</string>
 </resources>
