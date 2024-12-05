@@ -1,14 +1,13 @@
 <resources>
     <!-- Base application theme -->
     <style name="Base.Theme.IPBgpt" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/soft_blue</item>
-        <item name="android:textColorPrimary">@color/magenta_accent</item>
-        <item name="android:textColorSecondary">@color/soft_blue</item>
+        <item name="colorPrimary">@color/soft_green</item>
+        <item name="android:textColorPrimary">@color/dark_green</item>
+        <item name="android:textColorSecondary">@color/light_green</item>
     </style>
 
-
     <style name="Theme.IPBgpt" parent="Base.Theme.IPBgpt">
-        <item name="android:textColor">@color/soft_blue</item>
+        <item name="android:textColor">@color/dark_green</item>
     </style>
 
     <!-- App container parent style -->

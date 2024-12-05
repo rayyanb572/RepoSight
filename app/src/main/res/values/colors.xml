@@ -5,5 +5,9 @@
     <color name="blue">#8EC6FF</color>
     <color name="magenta_accent">#F78DD2</color>
 
+    <color name="soft_green">#A8D5BA</color>
+    <color name="dark_green">#005B2E</color>
+    <color name="light_green">#A9FBB8</color>
+    <color name="very_soft_green">#D6F2E1</color>
 
 </resources>
