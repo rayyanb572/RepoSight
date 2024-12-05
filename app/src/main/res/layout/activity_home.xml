@@ -146,8 +146,7 @@
                 app:boxStrokeColor="@color/dark_green"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/sendButton"
-                app:layout_constraintStart_toStartOf="parent"
-                app:endIconMode="clear_text">
+                app:layout_constraintStart_toStartOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/messageInput"
@@ -155,8 +154,23 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="@string/message"
-                    android:textColor="@color/dark_green" />
+                    android:textColor="@color/dark_green"
+                    android:paddingEnd="40dp" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/clearMessage"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="@string/clear_text"
+                app:srcCompat="@drawable/ic_clear"
+                app:layout_constraintEnd_toEndOf="@id/messageInputLayout"
+                app:layout_constraintTop_toTopOf="@id/messageInputLayout"
+                app:layout_constraintBottom_toBottomOf="@id/messageInputLayout"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/sendButton"

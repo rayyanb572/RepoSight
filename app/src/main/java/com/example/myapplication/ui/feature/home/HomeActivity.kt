@@ -64,6 +64,20 @@ class HomeActivity : AppCompatActivity() {
             retryButton.visibility = View.GONE
             loadDataFromApi()
         }
+        val messageInput = binding.messageInput
+        val clearMessage = binding.clearMessage
+
+        messageInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                clearMessage.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        clearMessage.setOnClickListener {
+            messageInput.text?.clear()
+        }
     }
 
     private fun updateEmptyState() {
