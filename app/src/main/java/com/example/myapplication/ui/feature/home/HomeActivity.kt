@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.SpannableString
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -29,8 +30,11 @@ import com.example.myapplication.ui.feature.user.LoginActivity
 import com.example.myapplication.data.room.Chat
 import com.example.myapplication.data.room.ChatDatabase
 import com.google.android.material.chip.Chip
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 class HomeActivity : AppCompatActivity() {
 
@@ -40,6 +44,9 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var dataStoreManager: DataStoreManager
     private val viewModel by lazy { ViewModelProvider(this)[ChatViewModel::class.java] }
     private val selectedDocuments = mutableSetOf<RelatedDocument>()
+
+    private val firestore = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,16 +100,53 @@ class HomeActivity : AppCompatActivity() {
 
     private fun sendMessage() {
         val message = binding.messageInput.text.toString()
-        if (message.isNotEmpty()) {
-            val chat = Chat(message = message, isSentByUser = true)
+        val currentUser = auth.currentUser
+        if (message.isNotEmpty() && selectedDocuments.isNotEmpty()) {
 
-            lifecycleScope.launch(Dispatchers.IO) {
-                ChatDatabase.getDatabase(this@HomeActivity).chatDao().insertChat(chat)
+            val messageId = UUID.randomUUID().toString()
+            val timestamp = System.currentTimeMillis()
+
+            // Prepare the related document data
+            val documentDetails = selectedDocuments.map {
+                mapOf(
+                    "judul" to it.judul,
+                    "url" to it.url
+                )
             }
+
 
             chatAdapter.addMessage(SpannableString(message), true)
             binding.messageInput.text?.clear()
+            viewModel.sendMessage(message, context = selectedDocuments.joinToString("\n\n") { it.abstrak })
 
+            viewModel.chatResponse.observe(this) { botResponse ->
+                if (!botResponse.isNullOrEmpty()) {
+                    // Save the message and response to Firestore
+                    val chatData = hashMapOf(
+                        "id" to messageId,
+                        "userId" to currentUser?.uid,
+                        "message" to message,
+                        "response" to botResponse,
+                        "timestamp" to timestamp,
+                        "relatedDocuments" to documentDetails
+                    )
+
+                    firestore.collection("messages").document(messageId)
+                        .set(chatData)
+                        .addOnSuccessListener {
+                            Log.d("Firestore", "Message and response saved successfully: $message")
+
+                            Toast.makeText(this, "Message sent successfully", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("Firestore", "Error saving message and response", e)
+                            Toast.makeText(this, "Failed to send message", Toast.LENGTH_SHORT).show()
+                        }
+
+                    // Clear the response to avoid duplicate handling
+                    viewModel.clearChatResponse()
+                }
+            }
             if (chatAdapter.itemCount == 1) {
                 animateMessageAddition()
             }

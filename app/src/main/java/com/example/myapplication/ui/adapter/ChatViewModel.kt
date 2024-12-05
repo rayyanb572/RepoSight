@@ -54,6 +54,10 @@ class ChatViewModel : ViewModel() {
         }
     }
 
+    fun clearChatResponse() {
+        _chatResponse.postValue(null)
+    }
+
     fun searchRelatedDocuments(query: String) {
         viewModelScope.launch {
             _isLoading.postValue(true)

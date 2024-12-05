@@ -2,23 +2,23 @@ package com.example.myapplication.ui.feature.history
 
 import android.os.Bundle
 import android.text.SpannableString
-import android.view.Menu
-import android.view.MenuItem
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.R
+import com.example.myapplication.data.local.RelatedDocument
 import com.example.myapplication.databinding.ActivityHistoryBinding
-import com.example.myapplication.ui.adapter.ChatAdapter
-import com.example.myapplication.data.local.Message
-import com.example.myapplication.data.room.ChatDatabase
-import kotlinx.coroutines.launch
+import com.example.myapplication.ui.adapter.HistoryAdapter
+import com.example.myapplication.ui.adapter.HistoryItem
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class HistoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHistoryBinding
-    private lateinit var chatAdapter: ChatAdapter
+    private lateinit var historyAdapter: HistoryAdapter
+    private val firestore = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,61 +27,56 @@ class HistoryActivity : AppCompatActivity() {
 
         setupToolbar()
         setupRecyclerView()
-        loadChatHistory()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_history, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_delete_all -> {
-                deleteAllChats()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun deleteAllChats() {
-        lifecycleScope.launch {
-            val database = ChatDatabase.getDatabase(this@HistoryActivity)
-            database.chatDao().deleteAllChats()
-            chatAdapter.submitList(emptyList())
-            showToast("All chat history deleted")
-        }
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        loadChatHistoryFromFirestore()
     }
 
     private fun setupRecyclerView() {
-        chatAdapter = ChatAdapter()
+        historyAdapter = HistoryAdapter()
         binding.historyRecyclerView.apply {
-            adapter = chatAdapter
+            adapter = historyAdapter
             layoutManager = LinearLayoutManager(this@HistoryActivity)
         }
     }
 
-    private fun loadChatHistory() {
-        lifecycleScope.launch {
-            val database = ChatDatabase.getDatabase(this@HistoryActivity)
-            database.chatDao().getAllChats().observe(this@HistoryActivity) { chats ->
-                val messages = chats.map { chat ->
-                    val spannableText = SpannableString(chat.message)
-                    Message(
-                        text = spannableText,
-                        content = chat.message,
-                        isUser = chat.isSentByUser,
-                        timestamp = chat.timestamp
+    private fun loadChatHistoryFromFirestore() {
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        firestore.collection("messages")
+            .whereEqualTo("userId", currentUser.uid)
+            .orderBy("timestamp") // Sort by time
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val historyList = querySnapshot.documents.map { document ->
+                    val message = document.getString("message") ?: ""
+                    val response = document.getString("response") ?: ""
+                    val timestamp = document.getLong("timestamp") ?: System.currentTimeMillis()
+                    val relatedDocs = document.get("relatedDocuments") as? List<Map<String, String>> ?: emptyList()
+
+                    HistoryItem(
+                        message = message,
+                        response = response,
+                        timestamp = timestamp,
+                        relatedDocuments = relatedDocs.map {
+                            RelatedDocument(
+                                judul = it["judul"] ?: "",
+                                abstrak = it["abstrak"] ?: "",
+                                url = it["url"] ?: ""
+                            )
+                        }
                     )
                 }
-                chatAdapter.submitList(messages)
+
+                historyAdapter.submitList(historyList)
+                Toast.makeText(this, "History loaded successfully", Toast.LENGTH_SHORT).show()
             }
-        }
+            .addOnFailureListener { e ->
+                Log.e("Firestore", "Error loading chat history", e)
+                Toast.makeText(this, "Failed to load history", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun setupToolbar() {

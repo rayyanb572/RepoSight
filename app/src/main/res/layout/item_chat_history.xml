@@ -1,35 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bubble_background"
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/tvSender"
-        android:layout_width="wrap_content"
+        android:id="@+id/relatedDocumentsTextView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sender"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textColor="@android:color/black"
+        android:text="Related Documents" />
 
     <TextView
-        android:layout_width="0dp"
+        android:id="@+id/messageTextView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/message_content_here"
-        app:layout_constraintTop_toBottomOf="@id/tvSender"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:text="User Message" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/responseTextView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/time"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:text="Bot Response" />
+
+    <TextView
+        android:id="@+id/timestampTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:textSize="12sp"
-        android:textColor="@color/dark_green"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textColor="@android:color/black"
+        android:text="Timestamp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>
