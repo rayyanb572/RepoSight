@@ -136,11 +136,9 @@ class HomeActivity : AppCompatActivity() {
                         .addOnSuccessListener {
                             Log.d("Firestore", "Message and response saved successfully: $message")
 
-                            Toast.makeText(this, "Message sent successfully", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener { e ->
                             Log.e("Firestore", "Error saving message and response", e)
-                            Toast.makeText(this, "Failed to send message", Toast.LENGTH_SHORT).show()
                         }
 
                     // Clear the response to avoid duplicate handling
