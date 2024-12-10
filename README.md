@@ -1,4 +1,5 @@
 # RepoSight: Repository Insighter
+![reposight_logo](https://github.com/user-attachments/assets/8493bd0b-1c06-4814-97b9-6c82027d467f)
 
 
 
