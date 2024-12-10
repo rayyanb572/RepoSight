@@ -1,6 +1,6 @@
 # RepoSight: Repository Insighter
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/a5a1047d-be84-4019-9cc4-6023c7d140d1" />
+  <img src="https://github.com/user-attachments/assets/a5a1047d-be84-4019-9cc4-6023c7d140d1"  width="128"/>
 </p>
 
 
