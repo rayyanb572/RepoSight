@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/bg_login"
     android:padding="16dp">
 
     <com.google.android.material.card.MaterialCardView
@@ -20,15 +23,51 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:text="@string/login"
-                android:textAlignment="center"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/os_bold"/>
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginBottom="24dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:id="@+id/ic_logo"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="8dp"
+                        android:contentDescription="@string/logo"
+                        android:src="@drawable/ic_logo" />
+
+                    <TextView
+                        android:id="@+id/loginTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login"
+                        android:textAlignment="center"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/os_bold"
+                        android:textColor="@color/dark_green" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/repoSightText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/os_bold"
+                    android:text="@string/reposight"
+                    android:textAlignment="center"
+                    android:textColor="@color/dark_green"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailLayout"
@@ -70,7 +109,11 @@
                 android:layout_marginBottom="12dp"
                 android:padding="12dp"
                 android:text="@string/login_button"
-                app:cornerRadius="8dp" />
+                android:textColor="@color/dark_green"
+                android:textSize="20sp"
+                android:background="@drawable/button_gradient"
+                app:cornerRadius="8dp"
+                app:backgroundTint="@null" />
 
             <TextView
                 android:id="@+id/signupLink"
@@ -78,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/sign_up"
-                android:textColor="@color/design_default_color_primary" />
+                android:textColor="@color/dark_green" />
 
         </LinearLayout>
 

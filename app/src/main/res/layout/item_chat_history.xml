@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:text="Related Documents" />
+        android:textColor="@color/dark_green"
+        android:text="@string/related_documents" />
 
     <TextView
         android:id="@+id/messageTextView"
@@ -22,24 +22,24 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:text="User Message" />
+        android:textColor="@color/dark_green"
+        android:text="@string/user_message" />
 
     <TextView
         android:id="@+id/responseTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:textColor="@android:color/black"
-        android:text="Bot Response" />
+        android:textColor="@color/dark_green"
+        android:text="@string/bot_response" />
 
     <TextView
         android:id="@+id/timestampTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="12sp"
-        android:textColor="@android:color/black"
-        android:text="Timestamp" />
+        android:textColor="@color/dark_green"
+        android:text="@string/timestamp" />
 
 
 

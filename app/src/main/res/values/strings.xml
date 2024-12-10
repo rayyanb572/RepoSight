@@ -38,4 +38,10 @@
     <string name="try_again">Try Again</string>
     <string name="empty_state_message">How can I assist you?</string>
     <string name="empty_state_image">empty state image</string>
+    <string name="timestamp">Timestamp</string>
+    <string name="bot_response">Bot Response</string>
+    <string name="user_message">User Message</string>
+    <string name="related_documents">Related Documents</string>
+    <string name="logo" />
+    <string name="reposight">RepoSights</string>
 </resources>

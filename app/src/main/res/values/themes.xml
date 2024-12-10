@@ -1,13 +1,21 @@
 <resources>
     <!-- Base application theme -->
     <style name="Base.Theme.IPBgpt" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/soft_green</item>
+        <item name="colorPrimary">@color/dark_green</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+
         <item name="android:textColorPrimary">@color/dark_green</item>
         <item name="android:textColorSecondary">@color/light_green</item>
     </style>
 
     <style name="Theme.IPBgpt" parent="Base.Theme.IPBgpt">
         <item name="android:textColor">@color/dark_green</item>
+    </style>
+
+    <style name="TransparentToolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:elevation">0dp</item>
     </style>
 
     <!-- App container parent style -->

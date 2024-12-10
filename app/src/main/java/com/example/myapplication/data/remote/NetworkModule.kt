@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object NetworkModule {
-    private const val BASE_URL = "https://dc68-34-125-32-197.ngrok-free.app"
+    private const val BASE_URL = "https://8eec-103-10-107-55.ngrok-free.app"
 
     private val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(120, TimeUnit.SECONDS)
