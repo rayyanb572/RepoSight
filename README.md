@@ -6,6 +6,8 @@
 <p align="justify">
 &emsp; Academic communities often struggle to efficiently locate relevant references within campus repositories due to limitations in existing platforms, which lack deep, context-sensitive search capabilities. To address this issue, our application introduces a user-friendly solution powered by advanced Natural Language Processing (NLP) technologies, including embedding models and Large Language Models (LLMs). This platform enables users to perform highly accurate searches based on specific topics, keywords, faculty members, or even the titles of student research papers. Additionally, it provides interactive features that allow users to engage directly with retrieved materials, such as summarizing papers, exploring specific methodologies, or gaining insights into research findings. By leveraging NLP, the application enhances search relevance and fosters a deeper, more interactive exploration of academic content. This project aims to bridge a critical gap in the academic ecosystem by offering a campus-centered platform that not only streamlines the discovery of relevant research but also promotes an enriched, context-driven interaction with scholarly materials. </p>
 
+### Features
+
 <b> Team ID : C242-PS517 </b>
 | Name | Student ID | University | Learning Path |
 | --- | --- | --- | --- |
