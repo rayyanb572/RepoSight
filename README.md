@@ -1,6 +1,7 @@
 # RepoSight: Repository Insighter
-<e> ![reposight_logo](https://github.com/user-attachments/assets/8493bd0b-1c06-4814-97b9-6c82027d467f) </e>
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a5a1047d-be84-4019-9cc4-6023c7d140d1" />
+</p>
 
 
 <b> Team ID : C242-PS517 </b>
