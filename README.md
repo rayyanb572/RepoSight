@@ -8,6 +8,15 @@
 
 ### Features
 
+- <b> Advanced NLP Search </b>
+<p>&emsp;&nbsp;&nbsp; Perform searches by topics, keywords, or titles with natural language support.</p>
+
+- <b> Document Interaction Features </b>
+<p>&emsp;&nbsp;&nbsp; Paper Summarization, Methodology Explanation, and Query-Specific Information.</p>
+
+- <b> Chat History </b>
+<p>&emsp;&nbsp;&nbsp; Save and revisit past search queries and interactions for future reference.</p>
+
 <b> Team ID : C242-PS517 </b>
 | Name | Student ID | University | Learning Path |
 | --- | --- | --- | --- |
