@@ -12,7 +12,7 @@
 <p>&emsp;&nbsp;&nbsp; Perform searches by topics, keywords, or titles with natural language support.</p>
 
 - <b> Document Interaction Features </b>
-<p>&emsp;&nbsp;&nbsp; Paper Summarization, Methodology Explanation, and Query-Specific Information.</p>
+<p>&emsp;&nbsp;&nbsp; Paper summarization, methodology explanation, and query-specific information.</p>
 
 - <b> Chat History </b>
 <p>&emsp;&nbsp;&nbsp; Save and revisit past search queries and interactions for future reference.</p>
