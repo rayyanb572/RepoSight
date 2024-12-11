@@ -17,7 +17,7 @@
 - <b> Chat History </b>
 <p>&emsp;&nbsp;&nbsp; Save and revisit past search queries and interactions for future reference.</p>
 
-<b> Team ID : C242-PS517 </b>
+# Team ID : C242-PS517
 | Name | Student ID | University | Learning Path |
 | --- | --- | --- | --- |
 | Dewa Fahtiar Fisabila | M001B4KY1073 | IPB University | Machine Learning |
