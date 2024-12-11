@@ -9,7 +9,7 @@
 ### Key Features
 
 - <b> Advanced NLP Search </b>
-<p>&emsp;&nbsp;&nbsp; Perform searches by topics, keywords, or titles with natural language support.</p>
+<p>&emsp;&nbsp;&nbsp; Perform paper searches by topics, keywords, or titles with natural language support.</p>
 
 - <b> Document Interaction Features </b>
 <p>&emsp;&nbsp;&nbsp; Paper summarization, methodology explanation, and query-specific information.</p>
