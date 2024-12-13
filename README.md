@@ -17,6 +17,18 @@
 - <b><i> Chat History </b></i>
 <p> Save and revisit past search queries and interactions for future reference.</p>
 
+Team Structure and Development Branches
+The project team consists of members specializing in three different learning paths—Machine Learning, Cloud Computing, and Mobile Development—working in their respective branches to ensure efficient collaboration and expertise-focused development.
+
+Machine Learning Branch
+Focused on developing advanced search capabilities and embedding-based models to enhance the accuracy and relevance of search results.
+
+Cloud Computing Branch
+Responsible for backend development, ensuring robust deployment and scalability of the application using Google Cloud Platform (GCP). This includes integrating GPU-based resources, setting up Kubernetes clusters, and leveraging Google Cloud Storage for model and vector data.
+
+Android Development Branch
+Dedicated to creating a mobile-friendly interface following Material Design principles to ensure a seamless user experience for academic communities.
+
 ## Team ID : C242-PS517
 | Name | Student ID | University | Learning Path |
 | --- | --- | --- | --- |
