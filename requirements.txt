@@ -1,0 +1,17 @@
+python-multipart
+fastapi
+uvicorn
+llama-index
+llama-index-embeddings-huggingface
+transformers>=4.43.2 
+torch
+bitsandbytes
+accelerate
+llama-index-llms-huggingface
+virtualenv
+pandas
+numpy
+llama-index-vector-stores-chroma
+chromadb
+sentence-transformers
+pydantic
