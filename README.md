@@ -21,13 +21,13 @@
 The project team consists of members specializing in three different learning paths—Machine Learning, Cloud Computing, and Mobile Development—working in their respective branches to ensure efficient collaboration and expertise-focused development.
 
 - <b><i> Machine Learning Branch </b></i>
-<p>Focused on developing advanced search capabilities and embedding-based models to enhance the accuracy and relevance of search results.
+<p>Focused on developing advanced search capabilities and embedding-based models to enhance the accuracy and relevance of search results.</p>
 
-- </b></i> Cloud Computing Branch </b></i>
-<p>Responsible for backend development, ensuring robust deployment and scalability of the application using Google Cloud Platform (GCP). This includes integrating GPU-based resources, setting up Kubernetes clusters, and leveraging Google Cloud Storage for model and vector data.
+- <b><i> Cloud Computing Branch </b></i>
+<p>Responsible for backend development, ensuring robust deployment and scalability of the application using Google Cloud Platform (GCP). This includes integrating GPU-based resources, setting up Kubernetes clusters, and leveraging Google Cloud Storage for model and vector data.</p>
 
-- </b></i> Android Development Branch </b></i>
-<p>Dedicated to creating a mobile-friendly interface following Material Design principles to ensure a seamless user experience for academic communities.
+- <b><i> Android Development Branch </b></i>
+<p>Dedicated to creating a mobile-friendly interface following Material Design principles to ensure a seamless user experience for academic communities.</p>
 
 ## Team ID : C242-PS517
 | Name | Student ID | University | Learning Path |
